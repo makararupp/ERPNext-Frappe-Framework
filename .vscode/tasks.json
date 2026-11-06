@@ -1,0 +1,70 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ERPNext: Start",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "up", "-d"],
+      "problemMatcher": [],
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "ERPNext: Watch site creation (first run)",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "logs", "-f", "create-site"],
+      "problemMatcher": []
+    },
+    {
+      "label": "ERPNext: Status",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "ps", "-a"],
+      "problemMatcher": []
+    },
+    {
+      "label": "ERPNext: All logs",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "logs", "-f", "--tail", "100"],
+      "problemMatcher": []
+    },
+    {
+      "label": "ERPNext: Open in browser",
+      "type": "shell",
+      "windows": { "command": "start http://localhost:8080" },
+      "osx": { "command": "open http://localhost:8080" },
+      "linux": { "command": "xdg-open http://localhost:8080" },
+      "problemMatcher": []
+    },
+    {
+      "label": "ERPNext: Stop (keep data)",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "stop"],
+      "problemMatcher": []
+    },
+    {
+      "label": "ERPNext: Backup site",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "exec", "backend", "bench", "--site", "frontend", "backup", "--with-files"],
+      "problemMatcher": []
+    },
+    {
+      "label": "ERPNext: Bench shell",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "exec", "backend", "bash"],
+      "problemMatcher": []
+    },
+    {
+      "label": "ERPNext: RESET - delete everything",
+      "type": "shell",
+      "command": "docker",
+      "args": ["compose", "down", "-v"],
+      "problemMatcher": []
+    }
+  ]
+}
